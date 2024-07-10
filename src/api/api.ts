@@ -12,8 +12,8 @@ class API {
   constructor() {
     this.axios = axios.create({ baseURL: BASE_URL });
 
-    this.train = new BusAPI(this.axios);
-    this.bus = new TrainAPI(this.axios);
+    this.train = new TrainAPI(this.axios);
+    this.bus = new BusAPI(this.axios);
   }
 }
 
