@@ -1,6 +1,7 @@
 'use client';
 
 import Tag from '@/components/SearchPage/Tag';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import locationData from '../../assets/location.json';
 
@@ -11,6 +12,7 @@ function SearchPage() {
   const [selectedDeparture, setSelectedDeparture] = useState<null | string>(null);
   const [selectedArrival, setSelectedArrival] = useState<null | string>(null);
   const [selectedDate, setSelectedDate] = useState<null | string>(null);
+  const router = useRouter();
 
   const handleDepartureClick = (location: string) => {
     setSelectedDeparture(location);
@@ -22,6 +24,14 @@ function SearchPage() {
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (selectedDeparture && selectedArrival && selectedDate) {
+      router.push(`/search/result?departure=${selectedDeparture}&arrival=${selectedArrival}&date=${selectedDate}`);
+    } else {
+      alert('출발지, 도착지, 날짜를 모두 선택해주세요.');
+    }
   };
 
   return (
@@ -61,7 +71,9 @@ function SearchPage() {
         />
       </section>
       <p className="mt-4 text-sm text-gray-600">성인 기준입니다.</p>
-      <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">완료</button>
+      <button onClick={handleSubmit} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        완료
+      </button>
     </div>
   );
 }
