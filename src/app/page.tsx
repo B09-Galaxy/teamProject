@@ -1,5 +1,5 @@
-import TrainPage from './train/train/page';
+import TrainPage from './info/train/page';
 
 export default function Home() {
-  return <TrainPage />;
+  return;
 }

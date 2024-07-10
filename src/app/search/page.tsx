@@ -28,7 +28,7 @@ function SearchPage() {
 
   const handleSubmit = () => {
     if (selectedDeparture && selectedArrival && selectedDate) {
-      router.push(`/info/bus?departure=${selectedDeparture}&arrival=${selectedArrival}&date=${selectedDate}`);
+      router.push(`/info/train?departure=${selectedDeparture}&arrival=${selectedArrival}&date=${selectedDate}`);
     } else {
       alert('출발지, 도착지, 날짜를 모두 선택해주세요.');
     }
