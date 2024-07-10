@@ -17,6 +17,6 @@ export const GET = async () => {
       return NextResponse.json({ message: 'Failed to fetch supabase data', error, status: false, statusCode: 500 });
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to fetch data', error, status: false, statusCode: 500 });
   }
 };
