@@ -8,6 +8,16 @@ const initialLocationData = Object.keys(locationData);
 
 function SearchPage() {
   const [locations, setLocations] = useState<string[]>(initialLocationData);
+  const [selectedDeparture, setSelectedDeparture] = useState<null | string>(null);
+  const [selectedArrival, setSelectedArrival] = useState<null | string>(null);
+
+  const handleDepartureClick = (location: string) => {
+    setSelectedDeparture(location);
+  };
+
+  const handleArrivalClick = (location: string) => {
+    setSelectedArrival(location);
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen flex-col px-4">
@@ -15,7 +25,12 @@ function SearchPage() {
         <h2 className="text-lg font-semibold mb-2">출발지</h2>
         <div className="flex flex-wrap">
           {locations.map((location: string) => (
-            <Tag key={location} name={location} />
+            <Tag
+              key={location}
+              name={location}
+              isSelected={selectedDeparture === location}
+              onClick={() => handleDepartureClick(location)}
+            />
           ))}
         </div>
       </section>
@@ -23,7 +38,12 @@ function SearchPage() {
         <h2 className="text-lg font-semibold mb-2">도착지</h2>
         <div className="flex flex-wrap">
           {locations.map((location: string) => (
-            <Tag key={location} name={location} />
+            <Tag
+              key={location}
+              name={location}
+              isSelected={selectedArrival === location}
+              onClick={() => handleArrivalClick(location)}
+            />
           ))}
         </div>
       </section>
