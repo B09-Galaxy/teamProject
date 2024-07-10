@@ -10,6 +10,7 @@ function SearchPage() {
   const [locations, setLocations] = useState<string[]>(initialLocationData);
   const [selectedDeparture, setSelectedDeparture] = useState<null | string>(null);
   const [selectedArrival, setSelectedArrival] = useState<null | string>(null);
+  const [selectedDate, setSelectedDate] = useState<null | string>(null);
 
   const handleDepartureClick = (location: string) => {
     setSelectedDeparture(location);
@@ -17,6 +18,10 @@ function SearchPage() {
 
   const handleArrivalClick = (location: string) => {
     setSelectedArrival(location);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(e.target.value);
   };
 
   return (
@@ -52,6 +57,7 @@ function SearchPage() {
         <input
           type="date"
           className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500 w-full"
+          onChange={handleDateChange}
         />
       </section>
       <p className="mt-4 text-sm text-gray-600">성인 기준입니다.</p>
