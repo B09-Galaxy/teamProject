@@ -28,6 +28,6 @@ export const GET = async (request: NextRequest) => {
 
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch data' });
+    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
   }
 };
