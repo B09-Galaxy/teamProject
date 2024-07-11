@@ -7,21 +7,21 @@ import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import trainStation from '@/assets/trainStation.json';
+import Link from 'next/link';
 
 export default function TrainPage() {
   const searchparams = useSearchParams();
-  const departure = searchparams.get('departure');
-  const arrival = searchparams.get('arrival');
-  const date = searchparams.get('date');
-
-  const people = '성인';
-  const peopleCount = '1';
+  const departure = searchparams.get('departure') as string;
+  const arrival = searchparams.get('arrival') as string;
+  const date = searchparams.get('date') as string;
 
   const pageNo = '1';
-  const numOfRows = '20';
+  const numOfRows = '100';
   const depPlandTime = date;
   const depPlaceId = trainStation[departure];
   const arrPlaceId = trainStation[arrival];
+  const people = '성인';
+  const peopleCount = '1';
 
   const [datas, setDatas] = useState([]);
 
@@ -33,8 +33,6 @@ export default function TrainPage() {
     fetchTrainApi();
   }, []);
 
-  console.log(datas);
-
   return (
     <div className="w-[1000px] mx-auto">
       <div className="flex flex-col m-5 mx-auto gap-2.5">
@@ -44,13 +42,18 @@ export default function TrainPage() {
         </p>
       </div>
       <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center gap-2.5">
-        <button className="w-2/5 h-10 m-1.5 text-xl font-bold text-gray-600 rounded border border-solid">버스</button>
-        <button className="w-2/5 h-10 m-1.5 bg-blue-400 text-white text-xl font-bold rounded border border-solid border-white">
+        <Link
+          className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border border-solid text-gray-600"
+          href={`/info/bus?departure=${departure}&arrival=${arrival}&date=${date}`}
+        >
+          버스
+        </Link>
+        <button className="w-2/5 h-10 m-1.5 text-xl font-bold rounded-md border border-solid bg-blue-400 text-white">
           열차
         </button>
       </div>
       {datas.map((data, index) => (
-        <Card key={index} data={data}></Card>
+        <Card key={index} data={data} />
       ))}
     </div>
   );
