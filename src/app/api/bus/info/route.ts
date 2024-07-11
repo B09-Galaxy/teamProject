@@ -24,9 +24,11 @@ export const GET = async (request: NextRequest) => {
       }
     });
     const data = response.data.response.body;
+    console.log('API 응답 데이터:', data); // 응답 데이터를 콘솔에 출력
 
     return NextResponse.json(data);
   } catch (error) {
+    console.error('API 요청 실패:', error); // 에러 내용을 콘솔에 출력
     return NextResponse.json({ message: 'Failed to fetch data', error, status: false, statusCode: 500 });
   }
 };
