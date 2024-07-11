@@ -3,7 +3,7 @@
 import Tag from '@/components/SearchPage/Tag';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import locationData from '../../assets/location.json';
+import locationData from '../../../../assets/location.json';
 
 const initialLocationData = Object.keys(locationData);
 
