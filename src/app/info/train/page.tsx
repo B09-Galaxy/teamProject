@@ -6,6 +6,7 @@ import Card from '@/components/TrainPage/Card';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import trainStation from '@/assets/trainStation.json';
 
 export default function TrainPage() {
   const searchparams = useSearchParams();
@@ -19,15 +20,8 @@ export default function TrainPage() {
   const pageNo = '1';
   const numOfRows = '20';
   const depPlandTime = '20240715';
-  // const depPlaceId = 'NAT010000'; //서울특별시
+  const depPlaceId = 'NAT010000'; //서울특별시
   const arrPlaceId = 'NAT014445';
-
-  const fetchDepPlaceId = async () => {
-    const response = await fetch('http://localhost:3001/test');
-    const depPlaceId = await response.json();
-    console.log(depPlaceId);
-    return depPlaceId;
-  };
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -39,6 +33,8 @@ export default function TrainPage() {
     const data = fetchTrainApi();
   }, []);
 
+  console.log(trainStation[departure]);
+  console.log(trainStation['서울특별시']);
   return (
     <div className="w-[1000px] mx-auto">
       <div className="flex flex-col m-5 mx-auto gap-2.5">
