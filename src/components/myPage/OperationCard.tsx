@@ -1,5 +1,8 @@
+'use client';
+import api from '@/api/api';
 import busImg from '@/assets/bus.png';
 import trainImg from '@/assets/train.png';
+import { createClient } from '@/supabase/client';
 import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 
@@ -9,10 +12,15 @@ interface OperationCardProps {
 }
 
 function OperationCard({ data }: OperationCardProps) {
-  const { departurePlace, arrivalPlace, detailType, departureTime, charge, transportType } = data;
+  const { bookMarkId, departurePlace, arrivalPlace, detailType, departureTime, charge, transportType } = data;
   const year = departureTime.slice(0, 4);
   const month = departureTime.slice(5, 6);
   const day = departureTime.slice(6);
+  const supabase = createClient();
+
+  const handleDelClick = async () => {
+    await api.bookMark.delBookMarkData(bookMarkId);
+  };
 
   return (
     <div className="border border-slate-400 flex flex-col">
@@ -23,7 +31,9 @@ function OperationCard({ data }: OperationCardProps) {
           </div>
           <div className="text-lg font-bold">{detailType}</div>
         </div>
-        <button className="text-sm bg-slate-300 w-40 py-3">즐겨찾기 취소</button>
+        <button className="text-sm bg-slate-300 w-40 py-3" onClick={handleDelClick}>
+          즐겨찾기 취소
+        </button>
       </div>
       <div className="flex flex-row py-5 px-3 justify-between">
         <div className="flex flex-row gap-6 justify-around ">
