@@ -2,16 +2,16 @@ import { createClient } from '@/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { URL } from 'url';
 
-const fakeUserId = '';
-
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
   const supabase = createClient();
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('userId');
 
   try {
     const { data, error } = await supabase
       .from('BookMark')
-      .select('*')
-      .eq('userId', fakeUserId)
+      .select()
+      .eq('userId', userId)
       .order('createdAt', { ascending: true });
 
     if (error)

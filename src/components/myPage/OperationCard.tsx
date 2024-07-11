@@ -1,8 +1,8 @@
 'use client';
-import api from '@/api/api';
+import arrowImg from '@/assets/arrow.png';
 import busImg from '@/assets/bus.png';
 import trainImg from '@/assets/train.png';
-import { createClient } from '@/supabase/client';
+import useBookMark from '@/hooks/useBookMark';
 import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 
@@ -16,10 +16,10 @@ function OperationCard({ data }: OperationCardProps) {
   const year = departureTime.slice(0, 4);
   const month = departureTime.slice(5, 6);
   const day = departureTime.slice(6);
-  const supabase = createClient();
+  const { delBookMark } = useBookMark();
 
   const handleDelClick = async () => {
-    await api.bookMark.delBookMarkData(bookMarkId);
+    await delBookMark(bookMarkId);
   };
 
   return (
@@ -41,12 +41,11 @@ function OperationCard({ data }: OperationCardProps) {
             <div className="text-[0.7rem]">
               출발 날짜: {year}년 {month}월 {day}일
             </div>
-            <div className="flex flex-row gap-6 font-bold text-lg">
+            <div className="flex flex-row gap-6 font-bold text-lg items-center">
               <div>{departurePlace}</div>
-              {/* <div className="w-5 aspect-auto ">
-            <Image className="object-cover" alt={transportType} src={arrowImg} />
-          </div> */}
-              <div>{`-->`}</div>
+              <div className="w-5 aspect-auto ">
+                <Image className="object-cover" alt={transportType} src={arrowImg} />
+              </div>
               <div>{arrivalPlace}</div>
             </div>
           </div>

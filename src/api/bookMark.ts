@@ -8,9 +8,13 @@ class BookMarkAPI {
     this.axios = axios;
   }
 
-  async getBookMarkData() {
+  async getBookMarkData(userId: string) {
     const path = '/api/book-mark';
-    const response = await this.axios.get(path);
+    const response = await this.axios.get(path, {
+      params: {
+        userId
+      }
+    });
     const data = response.data;
 
     return data;
