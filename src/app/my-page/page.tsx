@@ -22,9 +22,11 @@ async function MyPage() {
         <h1 className="text-2xl font-bold mb-5">마이페이지</h1>
         <p className="text-md font-bold mb-5">userID: {fakeUserId}</p>
         <h3 className="text-md font-bold">즐겨찾기</h3>
-        {data?.map((data: BookMark) => (
-          <OperationCard key={data.bookMarkId} data={data} />
-        ))}
+        <div className='flex flex-col gap-2'>
+          {data?.map((data: BookMark) => (
+            <OperationCard key={data.bookMarkId} data={data} />
+          ))}
+        </div>
       </div>
     </div>
   );
