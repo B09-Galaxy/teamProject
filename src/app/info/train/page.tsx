@@ -19,22 +19,22 @@ export default function TrainPage() {
 
   const pageNo = '1';
   const numOfRows = '20';
-  const depPlandTime = '20240715';
-  const depPlaceId = 'NAT010000'; //서울특별시
-  const arrPlaceId = 'NAT014445';
+  const depPlandTime = date;
+  const depPlaceId = trainStation[departure];
+  const arrPlaceId = trainStation[arrival];
 
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
+
   useEffect(() => {
     const fetchTrainApi = async () => {
       const response = await api.train.getTrainData({ pageNo, numOfRows, depPlaceId, arrPlaceId, depPlandTime });
-      setData(response);
-      console.log(response);
+      setDatas(response.data.items.item);
     };
-    const data = fetchTrainApi();
+    fetchTrainApi();
   }, []);
 
-  console.log(trainStation[departure]);
-  console.log(trainStation['서울특별시']);
+  console.log(datas);
+
   return (
     <div className="w-[1000px] mx-auto">
       <div className="flex flex-col m-5 mx-auto gap-2.5">
@@ -49,7 +49,9 @@ export default function TrainPage() {
           열차
         </button>
       </div>
-      <Card></Card>
+      {datas.map((data, index) => (
+        <Card key={index} data={data}></Card>
+      ))}
     </div>
   );
 }

@@ -3,13 +3,13 @@
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
-export default function Card() {
+export default function Card({ data }) {
   const searchparams = useSearchParams();
   const departure = searchparams.get('departure');
   const arrival = searchparams.get('arrival');
 
   const trainNumber = '0001';
-  const depTime = '00:00';
+  const depTime = data.arrplandtime;
   const costTime = '03:00';
   const arrTime = '24:00';
   const costTicket = '50000';
