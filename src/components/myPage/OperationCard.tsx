@@ -24,14 +24,14 @@ function OperationCard({ data }: OperationCardProps) {
 
   return (
     <div className="border border-slate-400 flex flex-col">
-      <div className="flex flex-row justify-between bg-slate-50 border border-b-slate-400">
+      <div className="flex flex-row justify-between bg-slate-50 border border-b-slate-400 border-x-0 border-t-0">
         <div className="flex flex-row gap-4 justify-center items-center ml-2">
           <div className="w-7 aspect-auto ">
             <Image className="object-cover" alt={transportType} src={transportType === 'train' ? trainImg : busImg} />
           </div>
           <div className="text-lg font-bold">{detailType}</div>
         </div>
-        <button className="text-sm bg-slate-300 w-40 py-3" onClick={handleDelClick}>
+        <button className="md:w-40 text-sm bg-slate-300 px-5 py-3" onClick={handleDelClick}>
           즐겨찾기 취소
         </button>
       </div>
