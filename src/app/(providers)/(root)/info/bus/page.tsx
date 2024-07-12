@@ -1,11 +1,11 @@
 'use client';
 
 import api from '@/api/api';
+import busStation from '@/assets/busStation.json';
 import Card from '@/components/BusPage/Card';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import busStation from '@/assets/busStation.json';
-import Link from 'next/link';
 
 function BusPage() {
   const searchparams = useSearchParams();
