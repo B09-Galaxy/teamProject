@@ -1,12 +1,11 @@
 'use client';
 
-import api from '@/api/api';
 import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
 import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
+import useTrain from '@/hooks/useTrain';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function TrainPage() {
   const searchparams = useSearchParams();
@@ -24,24 +23,14 @@ export default function TrainPage() {
   const depYear = date.slice(0, 4);
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
-
-  const [datas, setDatas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTrainApi = async () => {
-      const response = await api.train.getTrainData({
-        pageNo: PAGE_NO,
-        numOfRows: NUM_OF_ROWS,
-        depPlaceId,
-        arrPlaceId,
-        depPlandTime
-      });
-      setIsLoading(false);
-      setDatas(response.data.items.item);
-    };
-    fetchTrainApi();
-  }, []);
+  const params = {
+    pageNo: PAGE_NO,
+    numOfRows: NUM_OF_ROWS,
+    depPlaceId,
+    arrPlaceId,
+    depPlandTime
+  };
+  const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
 
   if (isLoading) return <TrainPageLoading />;
 
@@ -64,9 +53,7 @@ export default function TrainPage() {
           열차
         </button>
       </div>
-      {datas.map((data, index) => (
-        <Card key={index} data={data} />
-      ))}
+      {datas && datas.map((data, index) => <Card key={index} data={data} />)}
     </div>
   );
 }
