@@ -33,8 +33,6 @@ function TrainPage() {
   };
   const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
 
-  // console.log(trainStation[key](departure));
-
   if (isLoading) return <LoadingPage />;
   if (!datas) return <NonTrainApi />;
 
