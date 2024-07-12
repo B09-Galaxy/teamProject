@@ -1,17 +1,19 @@
 import { create } from 'zustand';
 
 interface UserState {
-  userId: string;
   isAuthenticated: boolean;
-  setLogIn: (userId: string) => void;
+  userName: string;
+  userId: string;
+  setLogIn: (userName: string, userId: string) => void;
   setLogOut: () => void;
 }
 
 const useUserStore = create<UserState>((set) => ({
-  userId: '',
   isAuthenticated: false,
-  setLogIn: (userId: string) => set({ userId, isAuthenticated: true }),
-  setLogOut: () => set({ userId: '', isAuthenticated: false })
+  userName: '',
+  userId: '',
+  setLogIn: (userName: string, userId: string) => set({ isAuthenticated: true, userName, userId }),
+  setLogOut: () => set({ isAuthenticated: false, userName: '', userId: '' })
 }));
 
 export default useUserStore;

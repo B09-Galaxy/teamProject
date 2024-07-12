@@ -6,9 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
-  console.log('로그인 모달 실행');
   const router = useRouter();
-  const setLogIn = useUserStore((state) => state.setLogIn);
 
   const closeModal = () => {
     router.back();
@@ -26,7 +24,6 @@ const LoginModal = () => {
         }
       }
     });
-    console.log(data);
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

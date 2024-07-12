@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import SignInBtn from './SignInBtn';
+import useUserStore from '@/zustand/user.store';
 
 export default function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
+  const { userName, isAuthenticated } = useUserStore();
 
   return (
     <nav className="bg-gray-100">
@@ -38,8 +40,9 @@ export default function Navbar() {
 
           {/* 메뉴2 */}
           <div className="hidden md:flex items-center space-x-1">
+            {isAuthenticated && <p>{userName}님, 안녕하세요! 👋</p>}
             {/* 마이페이지 아이콘 */}
-            <Link href="#">
+            <Link href="/my-page">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
