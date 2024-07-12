@@ -2,11 +2,11 @@
 
 import api from '@/api/api';
 import { TSupaInputBookMark } from '@/types/bookMark';
+import useUserStore from '@/zustand/user.store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
-
 function useBookMark() {
+  const { userId } = useUserStore();
   const queryClient = useQueryClient();
   const {
     data: bookMarks,
@@ -14,7 +14,7 @@ function useBookMark() {
     isError
   } = useQuery({
     queryKey: ['bookMark'],
-    queryFn: () => api.bookMark.getBookMarkData(fakeUserId)
+    queryFn: () => api.bookMark.getBookMarkData(userId)
   });
 
   const { mutateAsync: delBookMark } = useMutation({
@@ -26,8 +26,8 @@ function useBookMark() {
 
   const { mutateAsync: postBookMark } = useMutation({
     mutationFn: (bookMarkObj: TSupaInputBookMark) => {
-      console.log(bookMarkObj);
-      return api.bookMark.postBookMark(bookMarkObj)},
+      return api.bookMark.postBookMark(bookMarkObj);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookMark'] });
     }

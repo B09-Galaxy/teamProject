@@ -17,9 +17,9 @@ class BookMarkAPI {
     });
     const data = response.data;
 
-    const bookMarkMap:Record<string, any> = {};
-    for(const bookMark of data){
-      bookMarkMap[bookMark.bookMarkId] = bookMark
+    const bookMarkMap: Record<string, any> = {};
+    for (const bookMark of data) {
+      bookMarkMap[bookMark.bookMarkId] = bookMark;
     }
     return bookMarkMap;
   }
@@ -36,10 +36,10 @@ class BookMarkAPI {
     return data;
   }
 
-  async postBookMark(bookMark: Omit<Tables<'BookMark'>, "createdAt">) {
+  async postBookMark(bookMark: Omit<Tables<'BookMark'>, 'createdAt'>) {
     const path = '/api/book-mark';
 
-    const response = await this.axios.post(path,bookMark);
+    const response = await this.axios.post(path, bookMark);
     const data = response.data;
 
     return data;
