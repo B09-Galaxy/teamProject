@@ -1,12 +1,12 @@
 'use client';
 
 import api from '@/api/api';
+import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
+import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import trainStation from '@/assets/trainStation.json';
-import Link from 'next/link';
-import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
 
 export default function TrainPage() {
   const searchparams = useSearchParams();
@@ -53,7 +53,7 @@ export default function TrainPage() {
           {departure} → {arrival} | {PEOPLE} {PEOPLE_COUNT}명 | {depYear}년 {depMonth}월 {depDay}일
         </p>
       </div>
-      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center">
+      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center gap-2.5">
         <Link
           className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border hover:border-2 border-solid border-gray-300 hover:border-[#0076be] text-gray-600"
           href={`/info/bus?departure=${departure}&arrival=${arrival}&date=${date}`}
