@@ -13,19 +13,25 @@ export default function TrainPage() {
   const arrival = searchparams.get('arrival') as string;
   const date = searchparams.get('date') as string;
 
-  const pageNo = '1';
-  const numOfRows = '100';
+  const PAGE_NO = '1';
+  const NUM_OF_ROWS = '100';
+  const PEOPLE = '성인';
+  const PEOPLE_COUNT = '1';
   const depPlandTime = date;
   const depPlaceId = (trainStation as TrainStationType)[departure];
   const arrPlaceId = (trainStation as TrainStationType)[arrival];
-  const people = '성인';
-  const peopleCount = '1';
 
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     const fetchTrainApi = async () => {
-      const response = await api.train.getTrainData({ pageNo, numOfRows, depPlaceId, arrPlaceId, depPlandTime });
+      const response = await api.train.getTrainData({
+        pageNo: PAGE_NO,
+        numOfRows: NUM_OF_ROWS,
+        depPlaceId,
+        arrPlaceId,
+        depPlandTime
+      });
       setDatas(response.data.items.item);
     };
     fetchTrainApi();
@@ -36,7 +42,7 @@ export default function TrainPage() {
       <div className="flex flex-col m-5 mx-auto gap-2.5">
         <h1 className="text-center text-2xl font-extrabold">승차권 조회</h1>
         <p className="text-center text-sm text-gray-600">
-          {`${departure} → ${arrival} | ${people} ${peopleCount} 명 | ${date}`}
+          {`${departure} → ${arrival} | ${PEOPLE} ${PEOPLE_COUNT} 명 | ${date}`}
         </p>
       </div>
       <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center gap-2.5">
