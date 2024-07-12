@@ -5,8 +5,8 @@ type TrainStationType = {
 type TTrainParams = {
   pageNo: string;
   numOfRows: string;
-  depPlaceId: string;
-  arrPlaceId: string;
+  depPlaceId?: string;
+  arrPlaceId?: string;
   depPlandTime: string;
 };
 
