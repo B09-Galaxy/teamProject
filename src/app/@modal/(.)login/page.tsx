@@ -1,40 +1,33 @@
 'use client';
 
+import { createClient } from '@/supabase/supabaseBrowserClient';
+import useUserStore from '@/zustand/user.store';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
+  console.log('로그인 모달 실행');
   const router = useRouter();
+  const setLogIn = useUserStore((state) => state.setLogIn);
 
   const closeModal = () => {
     router.back();
   };
 
   const handleLoginWithGoogle = async () => {
-    try {
-      const response = await fetch('/api/auth/log-in', {
-        method: 'GET'
-      });
-
-      const responseData = await response.json();
-
-      if (response.ok) {
-        if (responseData.url) {
-          window.location.href = responseData.url;
-        } else {
-          console.error('Login failed: Missing URL in response');
-          alert('로그인 중 에러가 발생했습니다.');
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'http://localhost:3000/api/auth/callback',
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent'
         }
-      } else {
-        console.error('Login failed:', responseData.error || 'Unknown error');
-        alert(responseData.error || '로그인 중 에러가 발생했습니다.');
       }
-    } catch (error) {
-      console.error('Unexpected error:', error);
-      alert('로그인 중 에러가 발생했습니다.');
-    }
+    });
+    console.log(data);
   };
-
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-8 rounded shadow-lg w-96">

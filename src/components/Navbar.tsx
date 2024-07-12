@@ -3,13 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import SignInBtn from './SignInBtn';
 
 export default function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
 
   return (
     <nav className="bg-gray-100">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className=" mx-auto px-4">
         <div className="flex justify-between">
           {/* 메뉴1 */}
           <div className="flex space-x-4">
@@ -37,6 +38,7 @@ export default function Navbar() {
 
           {/* 메뉴2 */}
           <div className="hidden md:flex items-center space-x-1">
+            {/* 마이페이지 아이콘 */}
             <Link href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,15 +53,26 @@ export default function Navbar() {
                 />
               </svg>
             </Link>
-            <Link href="/login">
-              <button className="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-400 text-white-900 hover:text-white-800 rounded transition duration-300 ">
-                로그인
-              </button>
-            </Link>
+            <SignInBtn />
           </div>
 
           {/* mobile menu */}
           <div className="md:hidden flex items-center">
+            <Link href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="h-12 w-12 mr-2 text-blue-500 hover:text-blue-400 cursor-pointer"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 9c-1.825 0-3.422.977-4.295 2.437A5.49 5.49 0 0 0 8 13.5a5.49 5.49 0 0 0 4.294-2.063A4.997 4.997 0 0 0 8 9Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
+            <SignInBtn />
             <button onClick={() => setMenuToggle(!menuToggle)}>
               {menuToggle ? (
                 <svg

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export default function LoginPage() {
+  console.log('로그인 페이지');
   const router = useRouter();
 
   const handleLoginWithGoogle = async () => {

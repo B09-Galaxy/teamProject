@@ -1,11 +1,10 @@
-import { createClient } from '@/supabase/server';
+import { createClient } from '@/supabase/supabaseServerClient';
 import { NextResponse } from 'next/server';
 
 const fakeUserId = '';
 
 export const GET = async () => {
   const supabase = createClient();
-
   try {
     const { data, error } = await supabase
       .from('BookMark')
