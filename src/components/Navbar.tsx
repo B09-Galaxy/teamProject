@@ -2,13 +2,22 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SignInBtn from './SignInBtn';
 import useUserStore from '@/zustand/user.store';
+import { showToast } from '@/utils/toastHelper';
 
 export default function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
+  const [isToastShown, setIsToastShown] = useState(false);
   const { userName, isAuthenticated } = useUserStore();
+
+  useEffect(() => {
+    if (isAuthenticated && !isToastShown) {
+      showToast('info', `${userName}님, 환영합니다! 👋`);
+      setIsToastShown(true);
+    }
+  }, [isAuthenticated, isToastShown, userName]);
 
   return (
     <nav className="bg-gray-100">
@@ -17,7 +26,7 @@ export default function Navbar() {
           {/* 메뉴1 */}
           <div className="flex space-x-4">
             <div>
-              <Link href="#" className="flex items-center py-5 px-2 text-gray-700">
+              <Link href="/" className="flex items-center py-5 px-2 text-gray-700">
                 <Image
                   src="/train-512.png"
                   alt="홈페이지 로고"

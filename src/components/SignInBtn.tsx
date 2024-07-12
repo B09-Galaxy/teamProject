@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { createClient } from '@/supabase/supabaseBrowserClient';
 import useUserStore from '../zustand/user.store';
 import { useRouter } from 'next/navigation';
+import { showToast } from '@/utils/toastHelper';
 
 export default function SignInBtn() {
   const { isAuthenticated, setLogIn, setLogOut } = useUserStore();
@@ -23,9 +24,9 @@ export default function SignInBtn() {
         } else {
           setLogOut();
         }
-        console.log('data => ', data);
       } catch (error) {
         console.error('Error fetching session:', error);
+        showToast('error', '세션을 가져오는 중 오류가 발생했습니다.');
         setLogOut();
       }
     };
@@ -38,10 +39,11 @@ export default function SignInBtn() {
       if (error) throw error;
 
       setLogOut();
-      alert('로그아웃 되었습니다.');
+      showToast('success', '로그아웃 되었습니다.');
       router.refresh();
     } catch (error) {
       console.error('Error during logout:', error);
+      showToast('error', '로그아웃 중 오류가 발생했습니다.');
     }
   };
 

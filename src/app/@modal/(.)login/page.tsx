@@ -1,7 +1,6 @@
 'use client';
 
 import { createClient } from '@/supabase/supabaseBrowserClient';
-import useUserStore from '@/zustand/user.store';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -35,16 +34,7 @@ const LoginModal = () => {
 
         <div className="flex flex-col items-center">
           <Image src="/how-traffic.png" alt="야교통어때 로고" width={300} height={300} />
-          <div>
-            <Image
-              src="/kakao-login.png"
-              alt="카카오 로그인 이미지"
-              width={215}
-              height={215}
-              className="cursor-pointer hover:shadow-lg"
-            />
-          </div>
-          <br />
+
           <div
             onClick={handleLoginWithGoogle}
             className="flex items-center justify-center w-52 h-14 bg-white rounded cursor-pointer shadow hover:shadow-lg text-sm"
