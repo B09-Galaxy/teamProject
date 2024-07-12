@@ -9,3 +9,13 @@ type TTrainParams = {
   arrPlaceId: string;
   depPlandTime: string;
 };
+
+type TTrainInfo = {
+  adultcharge: string;
+  arrplacename: string;
+  arrplandtime: number;
+  depplacename: string;
+  depplandtime: number;
+  traingradename: string;
+  trainno: number;
+};

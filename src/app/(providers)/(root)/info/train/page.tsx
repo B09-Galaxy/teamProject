@@ -2,12 +2,13 @@
 
 import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
-import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
-import useTrain from '@/hooks/useTrain';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import LoadingPage from '@/components/common/LoadingPage';
+import NonTrainApi from '@/components/TrainPage/NonTrainApi';
+import useTrain from '@/hooks/useTrain';
 
-export default function TrainPage() {
+function TrainPage() {
   const searchparams = useSearchParams();
   const departure = searchparams.get('departure') as string;
   const arrival = searchparams.get('arrival') as string;
@@ -32,7 +33,8 @@ export default function TrainPage() {
   };
   const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
 
-  if (isLoading) return <TrainPageLoading />;
+  if (isLoading) return <LoadingPage />;
+  if (!datas) return <NonTrainApi />;
 
   return (
     <div className="w-[1000px] mx-auto">
@@ -57,3 +59,5 @@ export default function TrainPage() {
     </div>
   );
 }
+
+export default TrainPage;

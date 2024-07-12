@@ -10,7 +10,7 @@ interface CardProps {
 
 const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
 
-export default function Card({ data }: CardProps) {
+function Card({ data }: CardProps) {
   const { adultcharge, arrplacename, arrplandtime, depplacename, depplandtime, trainno, traingradename } = data;
   const { bookMarks, postBookMark, delBookMark } = useBookMark();
   const arrHour = String(arrplandtime).slice(8, 10);
@@ -84,3 +84,5 @@ export default function Card({ data }: CardProps) {
     </>
   );
 }
+
+export default Card;
