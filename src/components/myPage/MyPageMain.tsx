@@ -21,8 +21,8 @@ function MyPageMain() {
         즐겨찾기
       </h3>
       <div className="flex flex-col gap-2">
-        {bookMarks?.map((data: BookMark) => (
-          <OperationCard key={data.bookMarkId} data={data} />
+        {bookMarks && Object.keys(bookMarks).map((bookMarkKey) => (
+          <OperationCard key={bookMarks[bookMarkKey].bookMarkId} data={bookMarks[bookMarkKey]} />
         ))}
       </div>
     </div>

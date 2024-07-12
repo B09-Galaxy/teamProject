@@ -1,14 +1,14 @@
 'use client';
 
-import api from '@/api/api';
-import Card from '@/components/TrainPage/Card';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import trainStation from '@/assets/trainStation.json';
+import Card from '@/components/TrainPage/Card';
 import Link from 'next/link';
-import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
+import { useSearchParams } from 'next/navigation';
+import LoadingPage from '@/components/common/LoadingPage';
+import NonTrainApi from '@/components/TrainPage/NonTrainApi';
+import useTrain from '@/hooks/useTrain';
 
-export default function TrainPage() {
+function TrainPage() {
   const searchparams = useSearchParams();
   const departure = searchparams.get('departure') as string;
   const arrival = searchparams.get('arrival') as string;
@@ -24,26 +24,18 @@ export default function TrainPage() {
   const depYear = date.slice(0, 4);
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
+  const params = {
+    pageNo: PAGE_NO,
+    numOfRows: NUM_OF_ROWS,
+    depPlaceId,
+    arrPlaceId,
+    depPlandTime
+  };
 
-  const [datas, setDatas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { datas, isLoading }: { datas: TTrainInfo[] | undefined | void; isLoading: boolean } = useTrain(params);
 
-  useEffect(() => {
-    const fetchTrainApi = async () => {
-      const response = await api.train.getTrainData({
-        pageNo: PAGE_NO,
-        numOfRows: NUM_OF_ROWS,
-        depPlaceId,
-        arrPlaceId,
-        depPlandTime
-      });
-      setIsLoading(false);
-      setDatas(response.data.items.item);
-    };
-    fetchTrainApi();
-  }, []);
-
-  if (isLoading) return <TrainPageLoading />;
+  if (isLoading) return <LoadingPage />;
+  if (!datas) return <NonTrainApi />;
 
   return (
     <div className="w-[1000px] mx-auto">
@@ -53,7 +45,7 @@ export default function TrainPage() {
           {departure} → {arrival} | {PEOPLE} {PEOPLE_COUNT}명 | {depYear}년 {depMonth}월 {depDay}일
         </p>
       </div>
-      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center">
+      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center gap-2.5">
         <Link
           className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border hover:border-2 border-solid border-gray-300 hover:border-[#0076be] text-gray-600"
           href={`/info/bus?departure=${departure}&arrival=${arrival}&date=${date}`}
@@ -64,9 +56,9 @@ export default function TrainPage() {
           열차
         </button>
       </div>
-      {datas.map((data, index) => (
-        <Card key={index} data={data} />
-      ))}
+      {datas && datas.map((data: TTrainInfo, index: number) => <Card key={index} data={data} />)}
     </div>
   );
 }
+
+export default TrainPage;
