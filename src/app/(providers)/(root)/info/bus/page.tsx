@@ -3,10 +3,11 @@
 import api from '@/api/api';
 import Card from '@/components/BusPage/Card';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import busStation from '@/assets/busStation.json';
 import Link from 'next/link';
-import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
+import LoadingPage from '@/components/common/LoadingPage';
+import NonBusApi from '@/components/BusPage/NonBusApi';
+import useBus from '@/hooks/useBus';
 
 function BusPage() {
   const searchparams = useSearchParams();
@@ -24,26 +25,18 @@ function BusPage() {
   const depYear = date.slice(0, 4);
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
+  const params = {
+    pageNo: PAGE_NO,
+    numOfRows: NUM_OF_ROWS,
+    depTerminalId,
+    arrTerminalId,
+    depPlandTime
+  };
 
-  const [datas, setDatas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { datas, isLoading }: { datas: TBusInfo[] | undefined | void; isLoading: boolean } = useBus(params);
 
-  useEffect(() => {
-    const fetchBusApi = async () => {
-      const response = await api.bus.getBusData({
-        pageNo: PAGE_NO,
-        numOfRows: NUM_OF_ROWS,
-        depTerminalId,
-        arrTerminalId,
-        depPlandTime
-      });
-      setIsLoading(false);
-      setDatas(response.data.items.item);
-    };
-    fetchBusApi();
-  }, []);
-
-  if (isLoading) return <TrainPageLoading />;
+  if (isLoading) return <LoadingPage />;
+  if (!datas) return <NonBusApi />;
 
   return (
     <div className="w-[1000px] mx-auto">
@@ -64,9 +57,7 @@ function BusPage() {
           열차
         </Link>
       </div>
-      {datas.map((data, index) => (
-        <Card key={index} data={data} />
-      ))}
+      {datas && datas.map((data: TBusInfo, index: number) => <Card key={index} data={data} />)}
     </div>
   );
 }
