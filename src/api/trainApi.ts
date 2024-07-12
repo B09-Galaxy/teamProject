@@ -10,7 +10,6 @@ class TrainAPI {
   async getTrainData({ pageNo, numOfRows, depPlaceId, arrPlaceId, depPlandTime }: TTrainParams) {
     const response = await this.axios.get('api/train/info', {
       params: {
-        serviceKey: process.env.NEXT_PUBLIC_TRAIN_DECODING_KEY,
         pageNo,
         numOfRows,
         _type: 'json',
