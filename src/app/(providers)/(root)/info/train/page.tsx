@@ -31,11 +31,13 @@ function TrainPage() {
     arrPlaceId,
     depPlandTime
   };
-  const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
-  console.log(datas);
+
+
+  const { datas, isLoading }: { datas: TTrainInfo[] | undefined | void; isLoading: boolean } = useTrain(params);
+
   if (isLoading) return <LoadingPage />;
   if (!datas) return <NonTrainApi />;
-
+  
   return (
     <div className="w-[1000px] mx-auto">
       <div className="flex flex-col m-5 mx-auto gap-2.5">
@@ -55,7 +57,7 @@ function TrainPage() {
           열차
         </button>
       </div>
-      {datas && datas.map((data, index) => <Card key={index} data={data} />)}
+      {datas && datas.map((data: TTrainInfo, index: number) => <Card key={index} data={data} />)}
     </div>
   );
 }
