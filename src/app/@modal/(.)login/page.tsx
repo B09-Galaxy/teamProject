@@ -16,7 +16,7 @@ const LoginModal = () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000/api/auth/callback',
+        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent'
@@ -33,13 +33,13 @@ const LoginModal = () => {
         <h2 className="text-2xl font-bold mb-4">Login</h2>
 
         <div className="flex flex-col items-center">
-          <Image src="/how-traffic.png" alt="야교통어때 로고" width={300} height={300} />
+          <Image src="/how-traffic.png" alt="야교통어때 로고" width={300} height={300} priority />
 
           <div
             onClick={handleLoginWithGoogle}
             className="flex items-center justify-center w-52 h-14 bg-white rounded cursor-pointer shadow hover:shadow-lg text-sm"
           >
-            <Image src="/google-icon.png" alt="구글 로고 이미지" width={20} height={20} className="mr-5" />
+            <Image src="/google-icon.png" alt="구글 로고 이미지" width={20} height={20} className="mr-5" priority />
             <span className="text-black-54">Google 계정으로 로그인</span>
           </div>
         </div>

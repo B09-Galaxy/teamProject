@@ -6,8 +6,11 @@ import React, { useEffect, useState } from 'react';
 import SignInBtn from './SignInBtn';
 import useUserStore from '@/zustand/user.store';
 import { showToast } from '@/utils/toastHelper';
+import UserCircleSvg from './UserCircleSvg';
+import ThreeBarsSvg from './ThreeBarsSvg';
+import XMarkSvg from './XMarkSvg';
 
-export default function Navbar() {
+function Navbar() {
   const [menuToggle, setMenuToggle] = useState(false);
   const [isToastShown, setIsToastShown] = useState(false);
   const { userName, isAuthenticated } = useUserStore();
@@ -52,18 +55,7 @@ export default function Navbar() {
             {isAuthenticated && <p>{userName}님, 안녕하세요! 👋</p>}
             {/* 마이페이지 아이콘 */}
             <Link href="/my-page">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="h-12 w-12 mr-2 text-blue-500 hover:text-blue-400 cursor-pointer"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 9c-1.825 0-3.422.977-4.295 2.437A5.49 5.49 0 0 0 8 13.5a5.49 5.49 0 0 0 4.294-2.063A4.997 4.997 0 0 0 8 9Z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <UserCircleSvg />
             </Link>
             <SignInBtn />
           </div>
@@ -71,43 +63,10 @@ export default function Navbar() {
           {/* mobile menu */}
           <div className="md:hidden flex items-center">
             <Link href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="h-12 w-12 mr-2 text-blue-500 hover:text-blue-400 cursor-pointer"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 9c-1.825 0-3.422.977-4.295 2.437A5.49 5.49 0 0 0 8 13.5a5.49 5.49 0 0 0 4.294-2.063A4.997 4.997 0 0 0 8 9Z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <UserCircleSvg />
             </Link>
             <SignInBtn />
-            <button onClick={() => setMenuToggle(!menuToggle)}>
-              {menuToggle ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+            <button onClick={() => setMenuToggle(!menuToggle)}>{menuToggle ? <XMarkSvg /> : <ThreeBarsSvg />}</button>
           </div>
         </div>
       </div>
@@ -124,3 +83,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default Navbar;

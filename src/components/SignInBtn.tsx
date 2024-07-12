@@ -7,7 +7,7 @@ import useUserStore from '../zustand/user.store';
 import { useRouter } from 'next/navigation';
 import { showToast } from '@/utils/toastHelper';
 
-export default function SignInBtn() {
+function SignInBtn() {
   const { isAuthenticated, setLogIn, setLogOut } = useUserStore();
   const router = useRouter();
 
@@ -67,3 +67,5 @@ export default function SignInBtn() {
     </>
   );
 }
+
+export default SignInBtn;

@@ -8,7 +8,7 @@ interface ToastProviderProps {
   children: React.ReactNode;
 }
 
-export default function ToastProvider({ children }: ToastProviderProps) {
+function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
       {children}
@@ -16,3 +16,5 @@ export default function ToastProvider({ children }: ToastProviderProps) {
     </>
   );
 }
+
+export default ToastProvider;
