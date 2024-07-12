@@ -2,7 +2,7 @@
 
 import api from '@/api/api';
 import Card from '@/components/TrainPage/Card';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import trainStation from '@/assets/trainStation.json';
 import Link from 'next/link';
@@ -26,6 +26,7 @@ function TrainPage() {
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
 
+  const router = useRouter();
   const [datas, setDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,6 +44,8 @@ function TrainPage() {
     };
     fetchTrainApi();
   }, []);
+
+  // console.log(trainStation[key](departure));
 
   if (isLoading) return <LoadingPage />;
   if (!datas) return <NonTrainApi />;
