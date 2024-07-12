@@ -4,14 +4,7 @@ import useBookMark from '@/hooks/useBookMark';
 import { useId } from 'react';
 
 interface CardProps {
-  data: {
-    charge: string;
-    arrPlaceNm: string;
-    arrPlandTime: number;
-    depPlaceNm: string;
-    depPlandTime: number;
-    gradeNm: string;
-  };
+  data: TBusInfo;
 }
 
 const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
@@ -26,7 +19,7 @@ function Card({ data }: CardProps) {
   const depTimeSupabase = String(depPlandTime).slice(0, 8);
   const Charge = charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const isExist = bookMarks && bookMarks[bookMarkId];
-  console.log(isExist);
+
   const handleBookMarkClick = async () => {
     const bookMarkObj = {
       bookMarkId,
