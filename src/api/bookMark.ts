@@ -20,11 +20,11 @@ class BookMarkAPI {
     return data;
   }
 
-  async delBookMarkData(bookMarkId: number) {
+  async delBookMarkData(bookMarkId: string) {
     const path = '/api/book-mark';
     const response = await this.axios.delete(path, {
       params: {
-        bookMarkId: JSON.stringify(bookMarkId)
+        bookMarkId
       }
     });
     const data = response.data;
@@ -32,13 +32,10 @@ class BookMarkAPI {
     return data;
   }
 
-  async postBookMark(bookMark: Tables<'BookMark'>) {
+  async postBookMark(bookMark: Omit<Tables<'BookMark'>, "createdAt">) {
     const path = '/api/book-mark';
-    const response = await this.axios.post(path, {
-      params: {
-        bookMarkId: JSON.stringify(bookMark)
-      }
-    });
+
+    const response = await this.axios.post(path,bookMark);
     const data = response.data;
 
     return data;

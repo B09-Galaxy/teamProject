@@ -1,11 +1,11 @@
 'use client';
 
 import api from '@/api/api';
+import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import trainStation from '@/assets/trainStation.json';
-import Link from 'next/link';
 
 export default function TrainPage() {
   const searchparams = useSearchParams();
