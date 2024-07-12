@@ -3,6 +3,7 @@
 import api from '@/api/api';
 import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
+import { TrainPageLoading } from '@/components/TrainPage/TrainPageLoading';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ export default function TrainPage() {
   const arrPlaceId = (trainStation as TrainStationType)[arrival];
 
   const [datas, setDatas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTrainApi = async () => {
@@ -32,10 +34,13 @@ export default function TrainPage() {
         arrPlaceId,
         depPlandTime
       });
+      setIsLoading(false);
       setDatas(response.data.items.item);
     };
     fetchTrainApi();
   }, []);
+
+  if (isLoading) return <TrainPageLoading />;
 
   return (
     <div className="w-[1000px] mx-auto">
