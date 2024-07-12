@@ -10,7 +10,7 @@ export const GET = async (request: NextRequest) => {
   const depPlandTime = searchParams.get('depPlandTime');
 
   if (!pageNo || !numOfRows || !depPlaceId || !arrPlaceId || !depPlandTime)
-    return NextResponse.json('', { status: 400 });
+    return NextResponse.json('아무것도 없어요', { status: 400 });
 
   try {
     const response = await axios.get(`http://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo`, {
