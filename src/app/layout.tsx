@@ -1,7 +1,8 @@
+import Navbar from '@/components/Navbar';
+import ToastProvider from '@/providers/ToastProvider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import ToastProvider from '@/providers/ToastProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,6 +16,7 @@ function RootLayout({ children, modal }: Readonly<{ children: React.ReactNode; m
     <html lang="en">
       <body className={inter.className}>
         <ToastProvider>
+          <Navbar/>
           {children}
           {modal}
         </ToastProvider>

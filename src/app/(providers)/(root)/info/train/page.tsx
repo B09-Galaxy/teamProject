@@ -1,12 +1,12 @@
 'use client';
 
 import trainStation from '@/assets/trainStation.json';
-import Card from '@/components/TrainPage/Card';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import LoadingPage from '@/components/common/LoadingPage';
+import Card from '@/components/TrainPage/Card';
 import NonTrainApi from '@/components/TrainPage/NonTrainApi';
 import useTrain from '@/hooks/useTrain';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 function TrainPage() {
   const searchparams = useSearchParams();
@@ -21,9 +21,9 @@ function TrainPage() {
   const depPlandTime = date;
   const depPlaceId = (trainStation as TrainStationType)[departure];
   const arrPlaceId = (trainStation as TrainStationType)[arrival];
-  const depYear = date.slice(0, 4);
-  const depMonth = date.slice(4, 6);
-  const depDay = date.slice(6);
+  const depYear =  date && date.slice(0, 4);
+  const depMonth = date && date.slice(4, 6);
+  const depDay = date && date.slice(6);
   const params = {
     pageNo: PAGE_NO,
     numOfRows: NUM_OF_ROWS,
@@ -32,7 +32,7 @@ function TrainPage() {
     depPlandTime
   };
   const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
-
+  console.log(datas);
   if (isLoading) return <LoadingPage />;
   if (!datas) return <NonTrainApi />;
 
