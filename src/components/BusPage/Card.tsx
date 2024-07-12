@@ -1,5 +1,9 @@
 'use client';
 
+import useBookMark from '@/hooks/useBookMark';
+import { Tables } from '@/types/supabase';
+import { useId } from 'react';
+
 interface CardProps {
   data: {
     charge: string;
@@ -7,15 +11,42 @@ interface CardProps {
     arrPlandTime: number;
     depPlaceNm: string;
     depPlandTime: number;
+    gradeNm: string;
   };
 }
 
-function Card({ data }: CardProps) {
-  const { charge, arrPlaceNm, arrPlandTime, depPlaceNm, depPlandTime } = data;
+const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
 
+function Card({ data }: CardProps) {
+  const { charge, arrPlaceNm, arrPlandTime, depPlaceNm, depPlandTime, gradeNm } = data;
+  const { bookMarks, postBookMark, delBookMark } = useBookMark();
+  const bookMarkId = useId();
   const arrTime = String(arrPlandTime).slice(8, 10) + ' : ' + String(arrPlandTime).slice(10, 12);
   const depTime = String(depPlandTime).slice(8, 10) + ' : ' + String(depPlandTime).slice(10, 12);
+  const arrTimeSupabase = String(arrPlandTime).slice(0, 8);
+  const depTimeSupabase = String(depPlandTime).slice(0, 8);
   const Charge = charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const isExist = bookMarks?.filter((bookMark: Tables<'BookMark'>) => bookMark.bookMarkId === bookMarkId).length === 0;
+
+  const handleBookMarkClick = async () => {
+    const bookMarkObj = {
+      bookMarkId,
+      departurePlace: depPlaceNm,
+      arrivalPlace: arrPlaceNm,
+      departureTime: depTimeSupabase,
+      arrivalTime: arrTimeSupabase,
+      charge: Number(charge),
+      detailType: gradeNm,
+      transportType: 'train',
+      userId: fakeUserId
+    };
+
+    await postBookMark(bookMarkObj);
+  };
+
+  const handleDelClick = async () => {
+    await delBookMark(bookMarkId);
+  };
 
   return (
     <>
@@ -33,8 +64,11 @@ function Card({ data }: CardProps) {
         </div>
         <div className="flex flex-row items-center justify-center gap-2.5 w-[200px]">
           <h3 className="text-sm font-bold w-[100px] mx-auto">{`${Charge}원`}</h3>
-          <button className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md">
-            즐겨찾기
+          <button
+            className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md"
+            onClick={isExist ? handleBookMarkClick : handleDelClick}
+          >
+            {isExist ? '즐겨찾기' : '즐겨찾기 취소'}
           </button>
         </div>
       </div>
