@@ -1,7 +1,6 @@
 'use client';
 
 import useBookMark from '@/hooks/useBookMark';
-import { Tables } from '@/types/supabase';
 import { useId } from 'react';
 
 interface CardProps {
@@ -26,8 +25,8 @@ function Card({ data }: CardProps) {
   const arrTimeSupabase = String(arrPlandTime).slice(0, 8);
   const depTimeSupabase = String(depPlandTime).slice(0, 8);
   const Charge = charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const isExist = bookMarks?.filter((bookMark: Tables<'BookMark'>) => bookMark.bookMarkId === bookMarkId).length === 0;
-
+  const isExist = bookMarks && bookMarks[bookMarkId];
+  console.log(isExist);
   const handleBookMarkClick = async () => {
     const bookMarkObj = {
       bookMarkId,
@@ -66,9 +65,9 @@ function Card({ data }: CardProps) {
           <h3 className="text-sm font-bold w-[100px] mx-auto">{`${Charge}원`}</h3>
           <button
             className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md"
-            onClick={isExist ? handleBookMarkClick : handleDelClick}
+            onClick={isExist ? handleDelClick : handleBookMarkClick}
           >
-            {isExist ? '즐겨찾기' : '즐겨찾기 취소'}
+            {isExist ? '즐겨찾기취소' : '즐겨찾기'}
           </button>
         </div>
       </div>

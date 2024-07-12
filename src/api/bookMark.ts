@@ -17,7 +17,11 @@ class BookMarkAPI {
     });
     const data = response.data;
 
-    return data;
+    const bookMarkMap:Record<string, any> = {};
+    for(const bookMark of data){
+      bookMarkMap[bookMark.bookMarkId] = bookMark
+    }
+    return bookMarkMap;
   }
 
   async delBookMarkData(bookMarkId: string) {

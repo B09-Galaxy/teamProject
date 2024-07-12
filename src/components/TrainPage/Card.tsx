@@ -1,7 +1,6 @@
 'use client';
 
 import useBookMark from '@/hooks/useBookMark';
-import { Tables } from '@/types/supabase';
 import Image from 'next/image';
 import { useId } from 'react';
 
@@ -28,7 +27,7 @@ export default function Card({ data }: CardProps) {
   const arrTimeSupabase = String(arrplandtime).slice(0, 8);
   const depTimeSupabase = String(depplandtime).slice(0, 8);
   const charge = adultcharge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const isExist = bookMarks?.filter((bookMark: Tables<'BookMark'>) => bookMark.bookMarkId === bookMarkId).length === 0;
+  const isExist = bookMarks && bookMarks[bookMarkId];
 
   const handleBookMarkClick = async () => {
     const bookMarkObj = {
@@ -42,7 +41,6 @@ export default function Card({ data }: CardProps) {
       transportType: 'train',
       userId: fakeUserId
     };
-
     await postBookMark(bookMarkObj);
   };
 
@@ -77,9 +75,9 @@ export default function Card({ data }: CardProps) {
           <h3 className="text-sm font-bold w-[100px] mx-auto">{`${charge}원`}</h3>
           <button
             className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md"
-            onClick={isExist ? handleBookMarkClick : handleDelClick}
+            onClick={isExist ? handleDelClick : handleBookMarkClick}
           >
-            {isExist ? '즐겨찾기' : '즐겨찾기 취소'}
+            {isExist ? '즐겨찾기취소' : '즐겨찾기'}
           </button>
         </div>
       </div>

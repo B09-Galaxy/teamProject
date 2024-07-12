@@ -25,7 +25,9 @@ function useBookMark() {
   });
 
   const { mutateAsync: postBookMark } = useMutation({
-    mutationFn: (bookMarkObj: TSupaInputBookMark) => api.bookMark.postBookMark(bookMarkObj),
+    mutationFn: (bookMarkObj: TSupaInputBookMark) => {
+      console.log(bookMarkObj);
+      return api.bookMark.postBookMark(bookMarkObj)},
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookMark'] });
     }
