@@ -5,9 +5,9 @@ type BusStationType = {
 type TBusParams = {
   pageNo: string;
   numOfRows: string;
-  depTerminalId:string;
-  arrTerminalId:string;
-  depPlandTime:string;
+  depTerminalId?: string;
+  arrTerminalId?: string;
+  depPlandTime: string;
 };
 
 type TBusInfo = {
