@@ -1,101 +1,44 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import api from '@/api/api';
+interface CardProps {
+  data: {
+    charge: string;
+    arrPlaceNm: string;
+    arrPlandTime: number;
+    depPlaceNm: string;
+    depPlandTime: number;
+  };
+}
 
-const dummyBusData = {
-  items: [
-    {
-      routeId: '1',
-      depTerminalNm: '서울',
-      arrTerminalNm: '부산',
-      depPlandTime: '20240711 10:00',
-      arrPlandTime: '20240711 14:00',
-      fee: '20000'
-    },
-    {
-      routeId: '2',
-      depTerminalNm: '서울',
-      arrTerminalNm: '대전',
-      depPlandTime: '20240711 11:00',
-      arrPlandTime: '20240711 13:00',
-      fee: '15000'
-    }
-  ]
-};
+function Card({ data }: CardProps) {
+  const { charge, arrPlaceNm, arrPlandTime, depPlaceNm, depPlandTime } = data;
 
-function Card() {
-  const [busData, setBusData] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const departure = searchParams.get('departure');
-      const arrival = searchParams.get('arrival');
-      const date = searchParams.get('date');
-
-      if (!departure || !arrival || !date) {
-        setError('출발지, 도착지, 날짜 정보를 확인해주세요.');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const data = await api.bus.getBusData(1, 10, departure, arrival, date.replace(/-/g, '')); // API 호출
-        console.log('API 응답 데이터:', data); // API 응답 데이터를 로그로 출력
-        setBusData(data);
-      } catch (error) {
-        console.error('API 요청 실패:', error); // 에러 내용을 콘솔에 출력
-        // setError('데이터를 가져오는데 실패했습니다.');
-        setBusData(dummyBusData); // API 요청 실패 시 더미 데이터를 사용
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [searchParams]);
-
-  useEffect(() => {
-    console.log('busData 상태:', busData); // busData 상태를 로그로 출력
-    if (busData && busData.items) {
-      console.log('busData.items:', busData.items); // busData.items를 로그로 출력
-    }
-  }, [busData]);
-
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>{error}</div>;
+  const arrTime = String(arrPlandTime).slice(8, 10) + ' : ' + String(arrPlandTime).slice(10, 12);
+  const depTime = String(depPlandTime).slice(8, 10) + ' : ' + String(depPlandTime).slice(10, 12);
+  const Charge = charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
-    <div>
-      {busData ? (
-        <div className="w-full">
-          {busData.items.map((item: any) => (
-            <div className="w-[700px] m-5 mx-auto p-2.5 flex justify-center gap-5 border-solid border-blue-400 border-2 rounded">
-              <div className="flex justify-between w-[250px]">
-                <div key={item.routeId} className="flex flex-col">
-                  <h1 className="text-xl font-extrabold">{item.depPlandTime.split(' ')[1]}</h1>
-                  <h3 className="text-xs flex justify-center">{item.depTerminalNm}</h3>
-                </div>
-                <h3 className="text-xl flex items-center">→</h3>
-                <div key={item.routeId} className="flex flex-col">
-                  <h1 className="text-xl font-extrabold">{item.arrPlandTime.split(' ')[1]}</h1>
-                  <h3 className="text-xs flex justify-center">{item.arrTerminalNm}</h3>
-                </div>
-              </div>
-              <div className="ml-20 flex items-center justify-center">
-                <p className="font-extrabold">{`총 ${item.fee}원`}</p>
-              </div>
-            </div>
-          ))}
+    <>
+      <div className="pl-10 pr-10 w-[700px] mb-2 mx-auto p-2.5 flex justify-between gap-5 border-solid border rounded-md border-gray-100 hover:border-blue-400">
+        <div className="flex flex-col w-[300px]">
+          <div className="flex flex-row justify-between items-end">
+            <h1 className="text-l font-extrabold">{depTime}</h1>
+            <h3 className="text-xs text-gray-400">━━━━━━━━━</h3>
+            <h1 className="text-l font-extrabold">{arrTime}</h1>
+          </div>
+          <div className="flex flex-row justify-between">
+            <h3 className="text-xs">{depPlaceNm}</h3>
+            <h3 className="text-xs">{arrPlaceNm}</h3>
+          </div>
         </div>
-      ) : (
-        <div>버스 정보를 찾을 수 없습니다.</div>
-      )}
-    </div>
+        <div className="flex flex-row items-center justify-center gap-2.5 w-[200px]">
+          <h3 className="text-sm font-bold w-[100px] mx-auto">{`${Charge}원`}</h3>
+          <button className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md">
+            즐겨찾기
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
 

@@ -46,7 +46,7 @@ export default function Card({ data }: CardProps) {
           </div>
         </div>
         <div className="flex flex-row items-center justify-center gap-2.5 w-[200px]">
-          <h3 className="text-sm font-bold w-[100px] mx-auto">{`총 ${charge}원`}</h3>
+          <h3 className="text-sm font-bold w-[100px] mx-auto">{`${charge}원`}</h3>
           <button className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md">
             즐겨찾기
           </button>
