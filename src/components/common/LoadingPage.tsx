@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import LoadingSpinner from '../common/LoadingSpinner';
+import LoadingSpinner from './LoadingSpinner';
 import LordingImage from '@/assets/how-traffic.png';
 
-export const TrainPageLoading = () => {
+function LoadingPage() {
   return (
     <div className="h-[900px] flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-4">
@@ -14,4 +14,6 @@ export const TrainPageLoading = () => {
       </div>
     </div>
   );
-};
+}
+
+export default LoadingPage;

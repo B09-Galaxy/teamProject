@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 
 interface CardProps {
   data: {
@@ -15,7 +14,7 @@ interface CardProps {
   };
 }
 
-export default function Card({ data }: CardProps) {
+function Card({ data }: CardProps) {
   const { adultcharge, arrplacename, arrplandtime, depplacename, depplandtime, trainno } = data;
 
   const arrHour = String(arrplandtime).slice(8, 10);
@@ -63,3 +62,5 @@ export default function Card({ data }: CardProps) {
     </>
   );
 }
+
+export default Card;
