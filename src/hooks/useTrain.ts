@@ -6,7 +6,7 @@ const getTrainDataFn = async (trainParams: TTrainParams) => {
   if (!trainParams.depPlaceId || !trainParams.arrPlaceId) {
     return;
   }
-  api.train.getTrainData(trainParams);
+  return api.train.getTrainData(trainParams);
 };
 
 function useTrain(trainParams: TTrainParams) {
