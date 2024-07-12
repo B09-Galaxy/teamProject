@@ -1,9 +1,7 @@
 'use client';
 
 import api from '@/api/api';
-import TrainAPI from '@/api/trainApi';
 import Card from '@/components/TrainPage/Card';
-import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import trainStation from '@/assets/trainStation.json';
@@ -18,8 +16,8 @@ export default function TrainPage() {
   const pageNo = '1';
   const numOfRows = '100';
   const depPlandTime = date;
-  const depPlaceId = trainStation[departure];
-  const arrPlaceId = trainStation[arrival];
+  const depPlaceId = (trainStation as TrainStationType)[departure];
+  const arrPlaceId = (trainStation as TrainStationType)[arrival];
   const people = '성인';
   const peopleCount = '1';
 
