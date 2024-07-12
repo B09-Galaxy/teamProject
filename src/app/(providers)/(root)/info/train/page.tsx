@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import LoadingPage from '@/components/common/LoadingPage';
 import NonTrainApi from '@/components/TrainPage/NonTrainApi';
+import useTrain from '@/hooks/useTrain';
 
 function TrainPage() {
   const searchparams = useSearchParams();
