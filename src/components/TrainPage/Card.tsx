@@ -5,15 +5,7 @@ import Image from 'next/image';
 import { useId } from 'react';
 
 interface CardProps {
-  data: {
-    adultcharge: string;
-    arrplacename: string;
-    arrplandtime: number;
-    depplacename: string;
-    depplandtime: number;
-    traingradename: string;
-    trainno: number;
-  };
+  data: TTrainInfo;
 }
 
 const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';

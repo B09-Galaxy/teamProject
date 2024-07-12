@@ -1,11 +1,9 @@
 'use client';
 
-import api from '@/api/api';
 import trainStation from '@/assets/trainStation.json';
 import Card from '@/components/TrainPage/Card';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import LoadingPage from '@/components/common/LoadingPage';
 import NonTrainApi from '@/components/TrainPage/NonTrainApi';
 
@@ -25,24 +23,14 @@ function TrainPage() {
   const depYear = date.slice(0, 4);
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
-
-  const [datas, setDatas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTrainApi = async () => {
-      const response = await api.train.getTrainData({
-        pageNo: PAGE_NO,
-        numOfRows: NUM_OF_ROWS,
-        depPlaceId,
-        arrPlaceId,
-        depPlandTime
-      });
-      setIsLoading(false);
-      setDatas(response.data.items.item);
-    };
-    fetchTrainApi();
-  }, []);
+  const params = {
+    pageNo: PAGE_NO,
+    numOfRows: NUM_OF_ROWS,
+    depPlaceId,
+    arrPlaceId,
+    depPlandTime
+  };
+  const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
 
   // console.log(trainStation[key](departure));
 
@@ -68,9 +56,7 @@ function TrainPage() {
           열차
         </button>
       </div>
-      {datas.map((data, index) => (
-        <Card key={index} data={data} />
-      ))}
+      {datas && datas.map((data, index) => <Card key={index} data={data} />)}
     </div>
   );
 }
