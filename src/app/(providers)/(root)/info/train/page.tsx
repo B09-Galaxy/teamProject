@@ -55,7 +55,7 @@ export default function TrainPage() {
       </div>
       <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center">
         <Link
-          className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border border-solid text-gray-600"
+          className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border hover:border-2 border-solid border-gray-300 hover:border-[#0076be] text-gray-600"
           href={`/info/bus?departure=${departure}&arrival=${arrival}&date=${date}`}
         >
           버스
