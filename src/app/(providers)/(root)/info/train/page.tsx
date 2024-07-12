@@ -1,10 +1,10 @@
 'use client';
 
 import api from '@/api/api';
-import Card from '@/components/TrainPage/Card';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import trainStation from '@/assets/trainStation.json';
+import Card from '@/components/TrainPage/Card';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import LoadingPage from '@/components/common/LoadingPage';
 import NonTrainApi from '@/components/TrainPage/NonTrainApi';
@@ -26,7 +26,6 @@ function TrainPage() {
   const depMonth = date.slice(4, 6);
   const depDay = date.slice(6);
 
-  const router = useRouter();
   const [datas, setDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -58,7 +57,7 @@ function TrainPage() {
           {departure} → {arrival} | {PEOPLE} {PEOPLE_COUNT}명 | {depYear}년 {depMonth}월 {depDay}일
         </p>
       </div>
-      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center">
+      <div className="w-4/5 mb-2.5 mx-auto flex flex-row justify-center gap-2.5">
         <Link
           className="w-2/5 h-10 m-1.5 pt-1.5 text-center text-xl font-bold rounded-md border hover:border-2 border-solid border-gray-300 hover:border-[#0076be] text-gray-600"
           href={`/info/bus?departure=${departure}&arrival=${arrival}&date=${date}`}
