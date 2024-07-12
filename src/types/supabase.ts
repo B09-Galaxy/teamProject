@@ -12,7 +12,8 @@ export type Database = {
       BookMark: {
         Row: {
           arrivalPlace: string
-          bookMarkId: number
+          arrivalTime: string
+          bookMarkId: string
           charge: number
           createdAt: string
           departurePlace: string
@@ -23,7 +24,8 @@ export type Database = {
         }
         Insert: {
           arrivalPlace: string
-          bookMarkId?: number
+          arrivalTime: string
+          bookMarkId?: string
           charge: number
           createdAt?: string
           departurePlace: string
@@ -34,7 +36,8 @@ export type Database = {
         }
         Update: {
           arrivalPlace?: string
-          bookMarkId?: number
+          arrivalTime?: string
+          bookMarkId?: string
           charge?: number
           createdAt?: string
           departurePlace?: string
@@ -45,7 +48,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "searchHistory_userId_fkey"
+            foreignKeyName: "BookMark_userId_fkey"
             columns: ["userId"]
             isOneToOne: false
             referencedRelation: "Users"
@@ -62,7 +65,7 @@ export type Database = {
         Insert: {
           createdAt?: string
           social: string
-          userId?: string
+          userId: string
         }
         Update: {
           createdAt?: string

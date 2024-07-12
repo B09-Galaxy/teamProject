@@ -1,11 +1,10 @@
 'use client';
 
-import api from '@/api/api';
-import Card from '@/components/BusPage/Card';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import busStation from '@/assets/busStation.json';
+import Card from '@/components/BusPage/Card';
+import useBus from '@/hooks/useBus';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 function BusPage() {
   const searchparams = useSearchParams();
@@ -20,22 +19,14 @@ function BusPage() {
   const depPlandTime = date;
   const depTerminalId = (busStation as BusStationType)[departure];
   const arrTerminalId = (busStation as BusStationType)[arrival];
-
-  const [datas, setDatas] = useState([]);
-
-  useEffect(() => {
-    const fetchBusApi = async () => {
-      const response = await api.bus.getBusData({
-        pageNo: PAGE_NO,
-        numOfRows: NUM_OF_ROWS,
-        depTerminalId,
-        arrTerminalId,
-        depPlandTime
-      });
-      setDatas(response.data.items.item);
-    };
-    fetchBusApi();
-  }, []);
+  const params = {
+    pageNo: PAGE_NO,
+    numOfRows: NUM_OF_ROWS,
+    depTerminalId,
+    arrTerminalId,
+    depPlandTime
+  };
+  const { datas }: { datas: TBusInfo[] } = useBus(params);
 
   return (
     <div className="w-[1000px] mx-auto">
@@ -56,9 +47,7 @@ function BusPage() {
           열차
         </Link>
       </div>
-      {datas.map((data, index) => (
-        <Card key={index} data={data} />
-      ))}
+      {datas && datas.map((data, index) => <Card key={index} data={data} />)}
     </div>
   );
 }

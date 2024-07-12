@@ -1,28 +1,46 @@
 'use client';
 
+import useBookMark from '@/hooks/useBookMark';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useId } from 'react';
 
 interface CardProps {
-  data: {
-    adultcharge: string;
-    arrplacename: string;
-    arrplandtime: number;
-    depplacename: string;
-    depplandtime: number;
-    traingradename: string;
-    trainno: number;
-  };
+  data: TTrainInfo;
 }
 
-export default function Card({ data }: CardProps) {
-  const { adultcharge, arrplacename, arrplandtime, depplacename, depplandtime, trainno } = data;
+const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
 
+export default function Card({ data }: CardProps) {
+  const { adultcharge, arrplacename, arrplandtime, depplacename, depplandtime, trainno, traingradename } = data;
+  const { bookMarks, postBookMark, delBookMark } = useBookMark();
   const arrHour = String(arrplandtime).slice(8, 10);
   const arrMinute = String(arrplandtime).slice(10, 12);
   const depHour = String(depplandtime).slice(8, 10);
   const depMinute = String(depplandtime).slice(10, 12);
+  const bookMarkId = useId();
+  const arrTimeSupabase = String(arrplandtime).slice(0, 8);
+  const depTimeSupabase = String(depplandtime).slice(0, 8);
   const charge = adultcharge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const isExist = bookMarks && bookMarks[bookMarkId];
+
+  const handleBookMarkClick = async () => {
+    const bookMarkObj = {
+      bookMarkId,
+      departurePlace: depplacename,
+      arrivalPlace: arrplacename,
+      departureTime: depTimeSupabase,
+      arrivalTime: arrTimeSupabase,
+      charge: Number(adultcharge),
+      detailType: traingradename,
+      transportType: 'train',
+      userId: fakeUserId
+    };
+    await postBookMark(bookMarkObj);
+  };
+
+  const handleDelClick = async () => {
+    await delBookMark(bookMarkId);
+  };
 
   return (
     <>
@@ -55,8 +73,11 @@ export default function Card({ data }: CardProps) {
           <h3 className="text-sm font-bold w-[100px] mx-auto text-[#0076be]">
             {charge} <span className="text-sm font-bold text-black">원</span>
           </h3>
-          <button className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-[#0076be] text-black hover:text-white border-gray-6 rounded-md">
-            즐겨찾기
+          <button
+            className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md"
+            onClick={isExist ? handleDelClick : handleBookMarkClick}
+          >
+            {isExist ? '즐겨찾기취소' : '즐겨찾기'}
           </button>
         </div>
       </div>

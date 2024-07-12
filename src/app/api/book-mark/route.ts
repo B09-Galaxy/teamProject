@@ -24,7 +24,7 @@ export const GET = async (request: NextRequest) => {
 
 export const DELETE = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
-  const bookMarkId = Number(searchParams.get('bookMarkId'));
+  const bookMarkId = searchParams.get('bookMarkId');
   const supabase = createClient();
 
   try {
@@ -39,8 +39,7 @@ export const DELETE = async (request: NextRequest) => {
 };
 
 export const POST = async (request: NextRequest) => {
-  const { searchParams } = new URL(request.url);
-  const bookMark = JSON.parse(searchParams.get('bookMark')!);
+  const bookMark = await request.json();
   const supabase = createClient();
 
   try {
