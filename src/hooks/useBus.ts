@@ -6,7 +6,7 @@ const getBusDataFn = async (busParams: TBusParams) => {
   if (!busParams.depTerminalId || !busParams.arrTerminalId) {
     return;
   }
-  api.bus.getBusData(busParams);
+  return api.bus.getBusData(busParams);
 };
 
 function useBus(busParams: TBusParams) {
