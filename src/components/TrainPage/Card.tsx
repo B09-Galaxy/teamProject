@@ -1,45 +1,56 @@
 'use client';
 
 import useBookMark from '@/hooks/useBookMark';
+import useUserStore from '@/zustand/user.store';
 import Image from 'next/image';
-import { useId } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface CardProps {
   data: TTrainInfo;
 }
 
-const fakeUserId = 'edd2629c-82d7-4d2d-9c7f-e692afc978f5';
-
 function Card({ data }: CardProps) {
   const { adultcharge, arrplacename, arrplandtime, depplacename, depplandtime, trainno, traingradename } = data;
+  const id = arrplacename + arrplandtime + trainno + traingradename;
   const { bookMarks, postBookMark, delBookMark } = useBookMark();
   const arrHour = String(arrplandtime).slice(8, 10);
   const arrMinute = String(arrplandtime).slice(10, 12);
   const depHour = String(depplandtime).slice(8, 10);
   const depMinute = String(depplandtime).slice(10, 12);
-  const bookMarkId = useId();
   const arrTimeSupabase = String(arrplandtime).slice(0, 8);
   const depTimeSupabase = String(depplandtime).slice(0, 8);
   const charge = adultcharge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  const isExist = bookMarks && bookMarks[bookMarkId];
+  const curBookMark = bookMarks && bookMarks[id];
+  const isExist = curBookMark;
+  const { isAuthenticated, userId } = useUserStore();
+  const isUser = curBookMark && curBookMark.userId === userId;
+  const router = useRouter();
 
   const handleBookMarkClick = async () => {
-    const bookMarkObj = {
-      bookMarkId,
-      departurePlace: depplacename,
-      arrivalPlace: arrplacename,
-      departureTime: depTimeSupabase,
-      arrivalTime: arrTimeSupabase,
-      charge: Number(adultcharge),
-      detailType: traingradename,
-      transportType: 'train',
-      userId: fakeUserId
-    };
-    await postBookMark(bookMarkObj);
+    if (!isAuthenticated) {
+      router.push('/login');
+    } else {
+      const bookMarkObj = {
+        bookMarkId: id,
+        departurePlace: depplacename,
+        arrivalPlace: arrplacename,
+        departureTime: depTimeSupabase,
+        arrivalTime: arrTimeSupabase,
+        charge: Number(adultcharge),
+        detailType: traingradename,
+        transportType: 'train',
+        userId
+      };
+      await postBookMark(bookMarkObj);
+    }
   };
 
   const handleDelClick = async () => {
-    await delBookMark(bookMarkId);
+    if (!isAuthenticated) {
+      router.push('/login');
+    } else {
+      await delBookMark(id);
+    }
   };
 
   return (
@@ -73,11 +84,12 @@ function Card({ data }: CardProps) {
           <h3 className="text-sm font-bold w-[100px] mx-auto text-[#0076be]">
             {charge} <span className="text-sm font-bold text-black">원</span>
           </h3>
+
           <button
             className="text-sm w-[100px] p-1 mx-auto bg-white hover:bg-blue-400 border-gray-6 rounded-md"
-            onClick={isExist ? handleDelClick : handleBookMarkClick}
+            onClick={isExist && isUser ? handleDelClick : handleBookMarkClick}
           >
-            {isExist ? '즐겨찾기취소' : '즐겨찾기'}
+            {isExist && isUser ? '즐겨찾기취소' : '즐겨찾기'}
           </button>
         </div>
       </div>

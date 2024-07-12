@@ -24,7 +24,8 @@ export const GET = async (request: NextRequest) => {
         depPlandTime
       }
     });
-    const data = response.data.response.body;
+
+    const data = response.data.response.body.items.item;
 
     return NextResponse.json(data);
   } catch (error) {

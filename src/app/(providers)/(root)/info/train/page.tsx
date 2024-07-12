@@ -21,9 +21,9 @@ function TrainPage() {
   const depPlandTime = date;
   const depPlaceId = (trainStation as TrainStationType)[departure];
   const arrPlaceId = (trainStation as TrainStationType)[arrival];
-  const depYear = date.slice(0, 4);
-  const depMonth = date.slice(4, 6);
-  const depDay = date.slice(6);
+  const depYear =  date && date.slice(0, 4);
+  const depMonth = date && date.slice(4, 6);
+  const depDay = date && date.slice(6);
   const params = {
     pageNo: PAGE_NO,
     numOfRows: NUM_OF_ROWS,
@@ -31,11 +31,13 @@ function TrainPage() {
     arrPlaceId,
     depPlandTime
   };
-  const { datas, isLoading }: { datas: TTrainInfo[]; isLoading: boolean } = useTrain(params);
+
+
+  const { datas, isLoading }: { datas: TTrainInfo[] | undefined | void; isLoading: boolean } = useTrain(params);
 
   if (isLoading) return <LoadingPage />;
   if (!datas) return <NonTrainApi />;
-
+  
   return (
     <div className="w-[1000px] mx-auto">
       <div className="flex flex-col m-5 mx-auto gap-2.5">
@@ -55,7 +57,7 @@ function TrainPage() {
           열차
         </button>
       </div>
-      {datas && datas.map((data, index) => <Card key={index} data={data} />)}
+      {datas && datas.map((data: TTrainInfo, index: number) => <Card key={index} data={data} />)}
     </div>
   );
 }

@@ -2,6 +2,13 @@
 import api from '@/api/api';
 import { useQuery } from '@tanstack/react-query';
 
+const getTrainDataFn = async (trainParams: TTrainParams) => {
+  if (!trainParams.depPlaceId || !trainParams.arrPlaceId) {
+    return;
+  }
+  api.train.getTrainData(trainParams);
+};
+
 function useTrain(trainParams: TTrainParams) {
   const {
     data: datas,
@@ -9,7 +16,7 @@ function useTrain(trainParams: TTrainParams) {
     isError
   } = useQuery({
     queryKey: ['train'],
-    queryFn: () => api.train.getTrainData(trainParams)
+    queryFn: () => getTrainDataFn(trainParams)
   });
 
   return { datas, isLoading, isError };

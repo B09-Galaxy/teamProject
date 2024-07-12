@@ -18,7 +18,9 @@ class BusAPI {
         depPlandTime
       }
     });
-    const data = response.data.items.item;
+
+    const data = response.data;
+
     return data;
   }
 }

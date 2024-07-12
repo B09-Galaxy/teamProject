@@ -2,6 +2,13 @@
 import api from '@/api/api';
 import { useQuery } from '@tanstack/react-query';
 
+const getBusDataFn = async (busParams: TBusParams) => {
+  if (!busParams.depTerminalId || !busParams.arrTerminalId) {
+    return;
+  }
+  api.bus.getBusData(busParams);
+};
+
 function useBus(busParams: TBusParams) {
   const {
     data: datas,
@@ -9,7 +16,7 @@ function useBus(busParams: TBusParams) {
     isError
   } = useQuery({
     queryKey: ['bus'],
-    queryFn: () => api.bus.getBusData(busParams)
+    queryFn: () => getBusDataFn(busParams)
   });
 
   return { datas, isLoading, isError };
