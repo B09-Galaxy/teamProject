@@ -2,8 +2,8 @@
 
 import trainStation from '@/assets/trainStation.json';
 import LoadingPage from '@/components/common/LoadingPage';
+import InfoCard from '@/components/Info/InfoCard';
 import InfoMain from '@/components/Info/InfoMain';
-import TrainCard from '@/components/TrainPage/Card';
 import NonTrainApi from '@/components/TrainPage/NonTrainApi';
 import useTrain from '@/hooks/useTrain';
 import { useSearchParams } from 'next/navigation';
@@ -64,7 +64,20 @@ function TrainPage() {
       depDay={depDay}
       type="train"
     >
-      {datas && datas.map((data: TTrainInfo, index: number) => <TrainCard key={index} data={data} />)}
+      {datas &&
+        datas.map((data: TTrainInfo, index: number) => (
+          <InfoCard
+            key={index}
+            charge={data.adultcharge}
+            arrPlace={data.arrplacename}
+            arrTime={data.arrplandtime}
+            depPlace={data.depplacename}
+            depTime={data.depplandtime}
+            grade={data.traingradename}
+            type={data.trainno}
+            transportType = "train"
+          />
+        ))}
     </InfoMain>
   );
 }

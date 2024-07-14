@@ -1,9 +1,9 @@
 'use client';
 
 import busStation from '@/assets/busStation.json';
-import BusCard from '@/components/BusPage/Card';
 import NonBusApi from '@/components/BusPage/NonBusApi';
 import LoadingPage from '@/components/common/LoadingPage';
+import InfoCard from '@/components/Info/InfoCard';
 import InfoMain from '@/components/Info/InfoMain';
 import useBus from '@/hooks/useBus';
 import { useSearchParams } from 'next/navigation';
@@ -63,7 +63,19 @@ function BusPage() {
       depDay={depDay}
       type="bus"
     >
-      {datas && datas.map((data: TBusInfo, index: number) => <BusCard key={index} data={data} />)}
+      {datas &&
+        datas.map((data: TBusInfo, index: number) => (
+          <InfoCard
+            key={index}
+            charge={data.charge}
+            arrPlace={data.arrPlaceNm}
+            arrTime={data.arrPlandTime}
+            depPlace={data.depPlaceNm}
+            depTime={data.depPlandTime}
+            grade={data.gradeNm}
+            transportType="bus"
+          />
+        ))}
     </InfoMain>
   );
 }
