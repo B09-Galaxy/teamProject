@@ -34,22 +34,7 @@ function TrainPage() {
 
   const { datas, isLoading }: { datas: TTrainInfo[] | undefined; isLoading: boolean } = useTrain(params);
 
-  if (isLoading)
-    return (
-      <InfoMain
-        departure={departure}
-        arrival={arrival}
-        date={date}
-        PEOPLE={PEOPLE}
-        PEOPLE_COUNT={PEOPLE_COUNT}
-        depYear={depYear}
-        depMonth={depMonth}
-        depDay={depDay}
-        type="train"
-      >
-        <LoadingPage />
-      </InfoMain>
-    );
+  if (isLoading) return <LoadingPage />;
   if (!datas || !Array.isArray(datas))
     return (
       <InfoMain
@@ -66,7 +51,6 @@ function TrainPage() {
         <NonTrainApi />
       </InfoMain>
     );
-
 
   return (
     <InfoMain

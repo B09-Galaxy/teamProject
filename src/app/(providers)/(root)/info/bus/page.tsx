@@ -33,22 +33,7 @@ function BusPage() {
   };
 
   const { datas, isLoading }: { datas: TBusInfo[] | undefined; isLoading: boolean } = useBus(params);
-  if (isLoading)
-    return (
-      <InfoMain
-        departure={departure}
-        arrival={arrival}
-        date={date}
-        PEOPLE={PEOPLE}
-        PEOPLE_COUNT={PEOPLE_COUNT}
-        depYear={depYear}
-        depMonth={depMonth}
-        depDay={depDay}
-        type="bus"
-      >
-        <LoadingPage />
-      </InfoMain>
-    );
+  if (isLoading) return <LoadingPage />;
   if (!datas || !Array.isArray(datas))
     return (
       <InfoMain
