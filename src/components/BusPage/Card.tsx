@@ -8,7 +8,7 @@ interface CardProps {
   data: TBusInfo;
 }
 
-function Card({ data }: CardProps) {
+function BusCard({ data }: CardProps) {
   const { charge, arrPlaceNm, arrPlandTime, depPlaceNm, depPlandTime, gradeNm } = data;
   const id = arrPlaceNm + arrPlandTime + gradeNm; ;
   const { bookMarks, postBookMark, delBookMark } = useBookMark();
@@ -87,4 +87,4 @@ function Card({ data }: CardProps) {
   );
 }
 
-export default Card;
+export default BusCard;
