@@ -4,7 +4,7 @@
 
 국내 여행 및 장거리 이동 시 빠르게 교통수단(버스, 열차 등)을 한번에 조회할 수 있는 기능을 구현한 사이트
 
-**`서비스 링크`** : [서비스 링크](https://vercel.com/hb9901-gmailcoms-projects)
+**`서비스 링크`** : [서비스 링크](https://galaxy-traffic.vercel.app/)
 
 **`피그마 링크`** : [피그마 초안 링크](https://www.figma.com/design/fsCvUIZ5MoWdIz6r6kvSp3/Galaxy?node-id=0-1)
 
