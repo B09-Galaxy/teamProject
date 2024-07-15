@@ -16,6 +16,7 @@ function OperationCard({ data }: OperationCardProps) {
   const year = departureTime.slice(0, 4);
   const month = departureTime.slice(5, 6);
   const day = departureTime.slice(6);
+  const Charge = charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const { delBookMark } = useBookMark();
 
   const handleDelClick = async () => {
@@ -51,7 +52,7 @@ function OperationCard({ data }: OperationCardProps) {
           </div>
         </div>
         <div className="flex flex-row items-end text-sm gap-1">
-          <p className="font-bold text-[#0076be] text-2xl">{charge}</p>원
+          <p className="font-bold text-[#0076be] text-2xl">{Charge}</p>원
         </div>
       </div>
     </div>

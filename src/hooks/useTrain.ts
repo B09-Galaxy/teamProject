@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const getTrainDataFn = async (trainParams: TTrainParams) => {
   if (!trainParams.depPlaceId || !trainParams.arrPlaceId) {
-    return;
+    return { error: '해당하는 열차역이 없습니다' };
   }
   return api.train.getTrainData(trainParams);
 };
