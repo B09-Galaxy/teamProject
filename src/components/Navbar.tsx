@@ -40,6 +40,14 @@ function Navbar() {
                 <span className="font-bold">Home</span>
               </Link>
             </div>
+            <div className="hidden md:flex items-center space-x-1">
+              <Link href="#" className="py-5 px-3 text-gray-700 hover:text-gray-900 font-bold">
+                고객센터
+              </Link>
+              <Link href="#" className="py-5 px-3 text-gray-700 hover:text-gray-900 font-bold">
+                이벤트
+              </Link>
+            </div>
           </div>
 
           {/* 메뉴2 */}
