@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const getBusDataFn = async (busParams: TBusParams) => {
   if (!busParams.depTerminalId || !busParams.arrTerminalId) {
-    return;
+    return { error: '해당하는 버스터미널이 없습니다' };
   }
   return api.bus.getBusData(busParams);
 };
