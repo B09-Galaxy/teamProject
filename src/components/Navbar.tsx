@@ -1,13 +1,13 @@
 'use client';
 
+import { showToast } from '@/utils/toastHelper';
+import useUserStore from '@/zustand/user.store';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SignInBtn from './SignInBtn';
-import useUserStore from '@/zustand/user.store';
-import { showToast } from '@/utils/toastHelper';
-import UserCircleSvg from './UserCircleSvg';
 import ThreeBarsSvg from './ThreeBarsSvg';
+import UserCircleSvg from './UserCircleSvg';
 import XMarkSvg from './XMarkSvg';
 
 function Navbar() {
@@ -38,14 +38,6 @@ function Navbar() {
                   className="h-5 w-5 mr-2 text-blue-400"
                 />
                 <span className="font-bold">Home</span>
-              </Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-1">
-              <Link href="#" className="py-5 px-3 text-gray-700 hover:text-gray-900">
-                Features
-              </Link>
-              <Link href="#" className="py-5 px-3 text-gray-700 hover:text-gray-900">
-                Pricing
               </Link>
             </div>
           </div>
