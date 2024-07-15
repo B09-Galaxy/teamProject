@@ -66,10 +66,10 @@ function Navbar() {
       {/* mobile menu items */}
       <div className={`md:hidden ${menuToggle ? '' : 'hidden'}`}>
         <Link href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-          Pricing
+          고객센터
         </Link>
         <Link href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-          Features
+          이벤트
         </Link>
       </div>
     </nav>

@@ -9,7 +9,7 @@ function LoadingPage() {
       <div className="h-[400px] flex flex-col items-center justify-center gap-4">
         <Image src={Logo} width={100} height={500} alt="로딩중" />
         <div className="flex items-center gap-2">
-          <p className="font-bold text-3xl text-gray-700">Lording...</p>
+          <p className="font-bold text-3xl text-gray-700">Loading...</p>
           <LoadingSpinner />
         </div>
         <Link
