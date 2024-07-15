@@ -1,6 +1,6 @@
 'use client';
-import MyPageMain from '@/components/MyPage/MyPageMain';
-import SideBar from '@/components/MyPage/SideBar';
+import MyPageMain from '@/components/myPage/MyPageMain';
+import SideBar from '@/components/myPage/SideBar';
 
 function MyPage() {
   return (
