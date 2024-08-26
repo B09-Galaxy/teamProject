@@ -28,7 +28,7 @@ jobs:
 
           destination-github-username: hb9901
 
-          destination-repository-name: WorkConnect
+          destination-repository-name: Galaxy
 
           user-email: ${{ secrets.OFFICIAL_EMAIL }}
 
