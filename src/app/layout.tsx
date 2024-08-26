@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: '야, 교통 어때?',
-  description: '버스와 열차 및 기차 시간표 및 가격 조회 서비스 야, 교통 어때',
+  description: '버스와 열차 및 기차 시간표 및 가격 조회 서비스 야, 교통 어때?',
   applicationName: '야, 교통 어때',
   appleWebApp: {
     title: '야, 교통 어때?',
